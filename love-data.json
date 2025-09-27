@@ -1,7 +1,7 @@
 {
   "love-todo": {
-    "value": "[{\"text\":\"okkkkk\",\"done\":true},{\"text\":\"ok\",\"done\":true}]",
-    "timestamp": "2025-09-27T15:11:14.592Z"
+    "value": "[{\"text\":\"okkkkk\",\"done\":true},{\"text\":\"ok\",\"done\":false}]",
+    "timestamp": "2025-09-27T15:11:24.251Z"
   },
   "memory-photos": [
     {
