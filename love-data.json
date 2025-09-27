@@ -1,6 +1,10 @@
 {
   "love-todo": {
-    "value": "[]",
-    "timestamp": "2025-09-27T12:32:42.093Z"
+    "value": "[{\"text\":\"chào em\",\"done\":false}]",
+    "timestamp": "2025-09-27T12:39:37.997Z"
+  },
+  "note-2025-9-27": {
+    "value": "cũng oki ó",
+    "timestamp": "2025-09-27T12:39:37.997Z"
   }
 }
