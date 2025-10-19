@@ -1,0 +1,108 @@
+# Pokemon Database
+
+*Generated on: 20:02:01 19/10/2025*
+
+# quatuwu (ID: 100070815402204)
+
+**Team:** eternatus-eternamax, oddish, slowpoke
+
+| # | Ảnh | EXP | Level | Chỉ số |
+|---|---|---|---|---|
+| 1 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="gengar" width="50" height="50"> | 12167 | 23 | 583 |
+| 2 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/11.png" alt="metapod" width="50" height="50"> | 8000 | 20 | 202 |
+| 3 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/184.png" alt="azumarill" width="50" height="50"> | 8000 | 20 | 401 |
+| 4 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/90.png" alt="shellder" width="50" height="50"> | 6859 | 19 | 252 |
+| 5 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png" alt="wartortle" width="50" height="50"> | 3375 | 15 | 228 |
+| 6 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/142.png" alt="aerodactyl" width="50" height="50"> | 3375 | 15 | 305 |
+| 7 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10190.png" alt="eternatus-eternamax" width="50" height="50"> | **3191** | **14** | **681** |
+| 8 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/43.png" alt="oddish" width="50" height="50"> | **2744** | **14** | **157** |
+| 9 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png" alt="ivysaur" width="50" height="50"> | 2744 | 14 | 205 |
+| 10 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/71.png" alt="victreebel" width="50" height="50"> | 2744 | 14 | 252 |
+| 11 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/30.png" alt="nidorina" width="50" height="50"> | 1000 | 10 | 134 |
+| 12 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/64.png" alt="kadabra" width="50" height="50"> | 729 | 9 | 123 |
+| 13 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/141.png" alt="kabutops" width="50" height="50"> | 512 | 8 | 147 |
+| 14 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/118.png" alt="goldeen" width="50" height="50"> | 343 | 7 | 88 |
+| 15 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/79.png" alt="slowpoke" width="50" height="50"> | **216** | **6** | **85** |
+| 16 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/36.png" alt="clefable" width="50" height="50"> | 216 | 6 | 120 |
+| 17 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png" alt="blastoise" width="50" height="50"> | 64 | 4 | 109 |
+| 18 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/121.png" alt="starmie" width="50" height="50"> | 64 | 4 | 106 |
+| 19 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/96.png" alt="drowzee" width="50" height="50"> | 8 | 2 | 57 |
+| 20 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/92.png" alt="gastly" width="50" height="50"> | 8 | 2 | 50 |
+| 21 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="mewtwo" width="50" height="50"> | 1 | 1 | 108 |
+
+---
+
+# trungkienn (ID: 61581557620309)
+
+**Team:** dustox, seadra, regice
+
+| # | Ảnh | EXP | Level | Chỉ số |
+|---|---|---|---|---|
+| 1 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/269.png" alt="dustox" width="50" height="50"> | **39106** | **33** | **1209** |
+| 2 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/174.png" alt="igglybuff" width="50" height="50"> | 37813 | 33 | 752 |
+| 3 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/117.png" alt="seadra" width="50" height="50"> | **31191** | **31** | **1128** |
+| 4 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/74.png" alt="geodude" width="50" height="50"> | 27000 | 30 | 720 |
+| 5 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/312.png" alt="minun" width="50" height="50"> | 27000 | 30 | 945 |
+| 6 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/88.png" alt="grimer" width="50" height="50"> | 22464 | 28 | 669 |
+| 7 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png" alt="moltres" width="50" height="50"> | 19683 | 27 | 1016 |
+| 8 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/202.png" alt="wobbuffet" width="50" height="50"> | 17576 | 26 | 782 |
+| 9 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/378.png" alt="regice" width="50" height="50"> | **17189** | **25** | **803** |
+| 10 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/28.png" alt="sandslash" width="50" height="50"> | 16280 | 25 | 687 |
+| 11 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/211.png" alt="qwilfish" width="50" height="50"> | 15704 | 25 | 661 |
+| 12 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/301.png" alt="delcatty" width="50" height="50"> | 15625 | 25 | 610 |
+| 13 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/44.png" alt="gloom" width="50" height="50"> | 13961 | 24 | 509 |
+| 14 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png" alt="entei" width="50" height="50"> | 12167 | 23 | 737 |
+| 15 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/48.png" alt="venonat" width="50" height="50"> | 10648 | 22 | 348 |
+| 16 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/201.png" alt="unown" width="50" height="50"> | 10648 | 22 | 362 |
+| 17 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/96.png" alt="drowzee" width="50" height="50"> | 8000 | 20 | 300 |
+| 18 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/190.png" alt="aipom" width="50" height="50"> | 8000 | 20 | 339 |
+| 19 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/47.png" alt="parasect" width="50" height="50"> | 8000 | 20 | 364 |
+| 20 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/103.png" alt="exeggutor" width="50" height="50"> | 7511 | 19 | 438 |
+| 21 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/214.png" alt="heracross" width="50" height="50"> | 7278 | 19 | 428 |
+| 22 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/109.png" alt="koffing" width="50" height="50"> | 7154 | 19 | 276 |
+| 23 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/108.png" alt="lickitung" width="50" height="50"> | 6859 | 19 | 332 |
+| 24 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/49.png" alt="venomoth" width="50" height="50"> | 5832 | 18 | 338 |
+| 25 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/95.png" alt="onix" width="50" height="50"> | 4913 | 17 | 285 |
+| 26 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/72.png" alt="tentacool" width="50" height="50"> | 4299 | 16 | 203 |
+| 27 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/126.png" alt="magmar" width="50" height="50"> | 4096 | 16 | 303 |
+| 28 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/219.png" alt="magcargo" width="50" height="50"> | 3787 | 15 | 237 |
+| 29 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png" alt="articuno" width="50" height="50"> | 3375 | 15 | 328 |
+| 30 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="charmander" width="50" height="50"> | 3375 | 15 | 173 |
+| 31 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/118.png" alt="goldeen" width="50" height="50"> | 3375 | 15 | 186 |
+| 32 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/93.png" alt="haunter" width="50" height="50"> | 3278 | 14 | 200 |
+| 33 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="charizard" width="50" height="50"> | 2845 | 14 | 276 |
+| 34 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/56.png" alt="mankey" width="50" height="50"> | 2744 | 14 | 162 |
+| 35 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/81.png" alt="magnemite" width="50" height="50"> | 2744 | 14 | 153 |
+| 36 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/136.png" alt="flareon" width="50" height="50"> | 1373 | 11 | 197 |
+| 37 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/115.png" alt="kangaskhan" width="50" height="50"> | 1331 | 11 | 207 |
+| 38 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/92.png" alt="gastly" width="50" height="50"> | 729 | 9 | 95 |
+| 39 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png" alt="butterfree" width="50" height="50"> | 729 | 9 | 125 |
+| 40 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" alt="pikachu" width="50" height="50"> | 729 | 9 | 103 |
+| 41 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/102.png" alt="exeggcute" width="50" height="50"> | 229 | 6 | 80 |
+| 42 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/68.png" alt="machamp" width="50" height="50"> | 224 | 6 | 130 |
+| 43 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/38.png" alt="ninetales" width="50" height="50"> | 185 | 5 | 112 |
+| 44 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/106.png" alt="hitmonlee" width="50" height="50"> | 182 | 5 | 102 |
+| 45 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/120.png" alt="staryu" width="50" height="50"> | 125 | 5 | 75 |
+| 46 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/17.png" alt="pidgeotto" width="50" height="50"> | 79 | 4 | 75 |
+| 47 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/104.png" alt="cubone" width="50" height="50"> | 8 | 2 | 55 |
+| 48 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="bulbasaur" width="50" height="50"> | 5 | 1 | 48 |
+
+---
+
+# trungkien2 (ID: 100016757713599)
+
+**Team:** scyther, meowth, pidgey
+
+| # | Ảnh | EXP | Level | Chỉ số |
+|---|---|---|---|---|
+| 1 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/16.png" alt="pidgey" width="50" height="50"> | **760** | **9** | **84** |
+| 2 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/52.png" alt="meowth" width="50" height="50"> | **512** | **8** | **88** |
+| 3 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png" alt="rattata" width="50" height="50"> | 343 | 7 | 70 |
+| 4 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/30.png" alt="nidorina" width="50" height="50"> | 108 | 4 | 77 |
+| 5 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/56.png" alt="mankey" width="50" height="50"> | 68 | 4 | 64 |
+| 6 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/21.png" alt="spearow" width="50" height="50"> | 48 | 3 | 51 |
+| 7 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="bulbasaur" width="50" height="50"> | 6 | 1 | 48 |
+| 8 | <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/123.png" alt="scyther" width="50" height="50"> | **1** | **1** | **80** |
+
+---
+
