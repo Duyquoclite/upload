@@ -1,0 +1,1862 @@
+var GITHUB_TOKEN = '';
+var GITHUB_OWNER = 'Duyquoclite';
+var GITHUB_REPO = 'upload';
+var GITHUB_BRANCH = 'main';
+var LOVE_DATA_FILE = 'love-data.json';
+let me = { d: 30, m: 11, y: 2006 }
+let her = { d: 8, m: 3, y: 2013 }
+let date_day = { 
+    hour: '11:30:00',
+    day: '25/04/2026'
+}
+function getGitHubUrl(path) {
+    return `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+}
+
+function CungHoangDao(day, month) {
+    return (c => day > c[month - 1][1] ? c[month][0] : c[month - 1][0])([
+        ["♑️ Ma Kết", 19],
+        ["♒️ Bảo Bình", 18],
+        ["♓️ Song Ngư", 20],
+        ["♈️ Bạch Dương", 20],
+        ["♉️ Kim Ngưu", 20],
+        ["♊️ Song Tử", 21],
+        ["♋️ Cự Giải", 22],
+        ["♌️ Sư Tử", 22],
+        ["♍️ Xử Nữ", 22],
+        ["♎️ Thiên Bình", 23],
+        ["♏️ Bò Cạp", 22],
+        ["♐️ Nhân Mã", 21],
+        ["♑️ Ma Kết", 31]
+    ]);
+}
+date_day.day = date_day.day.split('/').reverse().join('-');
+document.addEventListener('DOMContentLoaded', function () {
+    const yourDate = new Date(`${date_day.day}T${date_day.hour}`);
+    var rootTime = document.querySelector("time");
+    // Hiển thị ngày kỉ niệm
+    const anniversaryDateElement = document.getElementById('anniversary-date');
+    if (anniversaryDateElement) {
+        const day = yourDate.getDate();
+        const month = yourDate.getMonth() + 1;
+        const year = yourDate.getFullYear();
+
+        anniversaryDateElement.innerHTML = `
+            <div style="font-size: 2.2rem; margin-bottom: 8px; font-weight: bold;">${day}/${month}/${year}</div>
+        `;
+    }
+
+    async function uploadToGitHub(data, filename) {
+        try {
+            const response = await fetch(getGitHubUrl(filename), {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: 'Update ' + filename,
+                    content: btoa(JSON.stringify(data, null, 2)),
+                    branch: 'main'
+                })
+            });
+
+            if (response.ok) {
+                console.log('✅ Data uploaded to GitHub:', filename);
+                return true;
+            } else {
+                console.error('❌ Upload failed:', response.statusText);
+                return false;
+            }
+        } catch (error) {
+            console.error('❌ GitHub upload error:', error);
+            return false;
+        }
+    }
+
+    async function saveToGitHub(key, value) {
+        let allData = {};
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+            }
+        } catch (error) {
+            console.log('📱 Creating new data file...');
+        }
+
+        allData[key] = {
+            value: value,
+            timestamp: new Date().toISOString()
+        };
+
+        uploadToGitHub(allData, LOVE_DATA_FILE);
+    }
+
+    async function loadFromGitHub(key) {
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                let allData;
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+                if (allData[key]) {
+                    return allData[key].value;
+                }
+            }
+        } catch (error) {
+            console.log('📱 No data found on GitHub...');
+        }
+
+        return null;
+    }
+
+    function cycleMoonIcon() {
+        const moonIcon = document.getElementById('moon-icon');
+        if (moonIcon) {
+            const moonPhases = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+            let currentPhase = 0;
+
+            setInterval(() => {
+                moonIcon.textContent = moonPhases[currentPhase];
+                currentPhase = (currentPhase + 1) % moonPhases.length;
+            }, 200);
+        }
+    }
+
+    cycleMoonIcon();
+
+    function animateEmojis() {
+        const titles = document.querySelectorAll('.mini-title');
+        titles.forEach(title => {
+            const text = title.textContent;
+            if (text.includes('💌')) {
+                title.style.animation = 'heartFloat 4s ease-in-out infinite';
+            } else if (text.includes('📝')) {
+                title.style.animation = 'noteWiggle 3s ease-in-out infinite';
+            } else if (text.includes('📸')) {
+                title.style.animation = 'cameraFlash 5s ease-in-out infinite';
+            } else {
+                title.style.animation = 'titleShimmer 6s ease-in-out infinite';
+            }
+        });
+    }
+
+    animateEmojis();
+
+    function getDaysTogether() {
+        return Math.floor(Math.floor((new Date() - yourDate) / 1000) / 60 / 60 / 24);
+    }
+
+
+    function olock() {
+        var today = new Date(),
+            hrs = (Math.floor(Math.floor((today - yourDate) / 1000) / 60 / 60)) % 24,
+            min = (Math.floor(Math.floor((today - yourDate) / 1000) / 60)) % 60,
+            sec = Math.floor((today - yourDate) / 1000) % 60;
+        if (rootTime) {
+            rootTime.textContent = `${(hrs > 9) ? hrs : "0" + hrs}:${(min > 9) ? min : "0" + min}:${(sec > 9) ? sec : "0" + sec}`;
+        }
+    }
+    olock();
+    var timer = setInterval(function () { olock() }, 1000);
+
+    document.getElementsByTagName("body")[0].insertAdjacentHTML(
+        "beforeend",
+        "<div id='mask'></div>"
+    );
+
+    function daysUntilBirthday(day, month) {
+        var now = new Date();
+        var y = now.getFullYear();
+        var next = new Date(y, month - 1, day);
+        if (next < now) next = new Date(y + 1, month - 1, day);
+        return Math.ceil((next - now) / 86400000);
+    }
+    var leftBadge = document.createElement('span'); leftBadge.className = 'badge'; leftBadge.id = 'bd-left';
+    var rightBadge = document.createElement('span'); rightBadge.className = 'badge'; rightBadge.id = 'bd-right';
+    document.querySelector('#info .profile-left').appendChild(leftBadge);
+    document.querySelector('#info .profile-right').appendChild(rightBadge);
+    function updateBadges() {
+        var leftDays = daysUntilBirthday(me.d, me.m);
+        var rightDays = daysUntilBirthday(her.d, her.m);
+
+        leftBadge.innerHTML = '🎂 Còn ' + leftDays + ' ngày đến sinh nhật';
+        rightBadge.innerHTML = '🎂 Còn ' + rightDays + ' ngày đến sinh nhật';
+
+        if (leftDays <= 7) {
+            leftBadge.style.animation = 'badgeUrgent 1s ease-in-out infinite';
+        }
+        if (rightDays <= 7) {
+            rightBadge.style.animation = 'badgeUrgent 1s ease-in-out infinite';
+        }
+    }
+    updateBadges(); setInterval(updateBadges, 60 * 60 * 1000);
+
+    function updateZodiacSigns() {
+        var leftZodiac = CungHoangDao(me.d, me.m);
+        document.querySelector('#info .profile-left .zodiac').textContent = leftZodiac;
+
+        var rightZodiac = CungHoangDao(her.d, her.m);
+        document.querySelector('#info .profile-right .zodiac').textContent = rightZodiac;
+    }
+
+    function calculateAge(birthYear, birthMonth, birthDay) {
+        var today = new Date();
+        var age = today.getFullYear() - birthYear;
+        var monthDiff = today.getMonth() - (birthMonth - 1);
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDay)) {
+            age--;
+        }
+        return age;
+    }
+
+    function updateBirthdaysWithAge() {
+        var leftAge = calculateAge(me.y, me.m, me.d);
+        document.querySelector('#info .profile-left .birthday').innerHTML = `${me.d}/${me.m}/${me.y} <span class="age-text">(${leftAge}+)</span>`;
+
+        var rightAge = calculateAge(her.y, her.m, her.d);
+        document.querySelector('#info .profile-right .birthday').innerHTML = `${her.d}/${her.m}/${her.y} <span class="age-text">(${rightAge}+)</span>`;
+    }
+
+    updateZodiacSigns();
+    updateBirthdaysWithAge();
+
+
+
+
+    function daysInMonth(date) {
+        var d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        return d.getDate();
+    }
+
+    function formatSemanticLabel(daysFromStart) {
+        if (daysFromStart === 1) return "1 ngày";
+        if (daysFromStart === 7) return "1 tuần";
+
+        var start = new Date(yourDate);
+
+        var oneMonth = new Date(start.getFullYear(), start.getMonth() + 1, start.getDate());
+        var dim1 = new Date(start.getFullYear(), start.getMonth() + 1, 0).getDate();
+        if (start.getDate() > dim1) oneMonth.setDate(dim1);
+        var oneMonthDays = Math.ceil((oneMonth - start) / 86400000);
+        if (daysFromStart === oneMonthDays) return "1 tháng";
+
+        var threeMonths = new Date(start.getFullYear(), start.getMonth() + 3, start.getDate());
+        var dim3 = new Date(start.getFullYear(), start.getMonth() + 3, 0).getDate();
+        if (start.getDate() > dim3) threeMonths.setDate(dim3);
+        var threeMonthsDays = Math.ceil((threeMonths - start) / 86400000);
+        if (daysFromStart === threeMonthsDays) return "3 tháng";
+
+        var sixMonths = new Date(start.getFullYear(), start.getMonth() + 6, start.getDate());
+        var dim6 = new Date(start.getFullYear(), start.getMonth() + 6, 0).getDate();
+        if (start.getDate() > dim6) sixMonths.setDate(dim6);
+        var sixMonthsDays = Math.ceil((sixMonths - start) / 86400000);
+        if (daysFromStart === sixMonthsDays) return "6 tháng";
+
+        var years = 1;
+        while (years <= 50) {
+            var y = new Date(start.getFullYear() + years, start.getMonth(), start.getDate());
+            if (y.getMonth() !== start.getMonth()) y = new Date(start.getFullYear() + years, start.getMonth() + 1, 0);
+            var d = Math.ceil((y - start) / 86400000);
+            if (daysFromStart === d) return years + (years === 1 ? " năm" : " năm");
+            years++;
+        }
+        return daysFromStart + " ngày";
+    }
+
+
+    var statDays = document.getElementById('stat-days');
+    var statHours = document.getElementById('stat-hours');
+    if (statDays && statHours) {
+        var days = getDaysTogether();
+        statDays.textContent = days + ' ngày';
+        var hours = Math.floor((new Date() - yourDate) / 36e5);
+        statHours.textContent = hours.toLocaleString('vi-VN') + ' giờ';
+    }
+})
+
+var heartChars = ["❤", "💖", "💗", "💘", "💝"]
+function spawnHeart() {
+    var heart = document.createElement("div");
+    heart.className = "float-heart";
+    heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    var size = 14 + Math.random() * 20;
+    var left = Math.random() * 100;
+    var duration = 5 + Math.random() * 4;
+    heart.style.left = left + "vw";
+    heart.style.fontSize = size + "px";
+    heart.style.animationDuration = duration + "s";
+    document.body.appendChild(heart);
+    setTimeout(function () { heart.remove(); }, duration * 1000);
+}
+
+function burstHearts(n) {
+    for (var i = 0; i < n; i++) {
+        setTimeout(spawnHeart, i * 60);
+    }
+}
+
+
+
+function showNotification(title, message, type = 'info', buttons = null) {
+    const modal = document.getElementById('notification-modal');
+    const icon = document.getElementById('notification-icon');
+    const titleEl = document.getElementById('notification-title');
+    const messageEl = document.getElementById('notification-message');
+    const buttonsEl = document.getElementById('notification-buttons');
+
+    titleEl.textContent = title;
+    messageEl.textContent = message;
+
+    modal.className = `notification-modal ${type}`;
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: '💖',
+        question: '❓'
+    };
+    icon.textContent = icons[type] || icons.info;
+
+    if (buttons && buttons.length > 0) {
+        buttonsEl.innerHTML = '';
+        buttons.forEach(button => {
+            const btn = document.createElement('button');
+            btn.className = `notification-btn ${button.type || 'primary'}`;
+            btn.textContent = button.text;
+            btn.onclick = button.onclick;
+            buttonsEl.appendChild(btn);
+        });
+    } else {
+        buttonsEl.innerHTML = '<button class="notification-btn primary" onclick="hideNotification()">OK</button>';
+    }
+
+    modal.classList.add('show');
+    modal.style.display = 'flex';
+}
+
+function hideNotification() {
+    const modal = document.getElementById('notification-modal');
+    modal.classList.remove('show');
+    modal.classList.add('hide');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.classList.remove('hide');
+    }, 300);
+}
+
+function customAlert(message, title = 'Thông báo') {
+    showNotification(title, message, 'info');
+}
+
+function customConfirm(message, title = 'Xác nhận', onConfirm = null, onCancel = null) {
+    showNotification(title, message, 'question', [
+        {
+            text: 'Hủy',
+            type: 'secondary',
+            onclick: () => {
+                hideNotification();
+                if (onCancel) onCancel();
+            }
+        },
+        {
+            text: 'Xác nhận',
+            type: 'primary',
+            onclick: () => {
+                hideNotification();
+                if (onConfirm) onConfirm();
+            }
+        }
+    ]);
+}
+
+function customPrompt(message, title = 'Nhập thông tin', defaultValue = '', onConfirm = null, onCancel = null) {
+    const messageEl = document.getElementById('notification-message');
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = defaultValue;
+    input.style.cssText = `
+            width: 100%;
+            padding: 10px;
+            border: 2px solid rgba(255, 107, 157, .3);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .1);
+            color: #333;
+            font-size: 14px;
+            margin: 10px 0;
+            outline: none;
+            transition: all .2s ease;
+        `;
+
+    input.addEventListener('focus', () => {
+        input.style.borderColor = '#ff6b9d';
+        input.style.boxShadow = '0 0 0 3px rgba(255, 107, 157, .2)';
+    });
+
+    input.addEventListener('blur', () => {
+        input.style.borderColor = 'rgba(255, 107, 157, .3)';
+        input.style.boxShadow = 'none';
+    });
+
+    messageEl.innerHTML = '';
+    messageEl.appendChild(document.createTextNode(message));
+    messageEl.appendChild(input);
+
+    showNotification(title, '', 'info', [
+        {
+            text: 'Hủy',
+            type: 'secondary',
+            onclick: () => {
+                hideNotification();
+                if (onCancel) onCancel();
+            }
+        },
+        {
+            text: 'Xác nhận',
+            type: 'primary',
+            onclick: () => {
+                hideNotification();
+                if (onConfirm) onConfirm(input.value);
+            }
+        }
+    ]);
+
+    setTimeout(() => input.focus(), 100);
+}
+
+window.alert = customAlert;
+window.confirm = customConfirm;
+window.prompt = customPrompt;
+
+var lastSpark = 0;
+window.addEventListener('pointermove', function (e) {
+    var now = Date.now(); if (now - lastSpark < 28) return; lastSpark = now;
+    var s = document.createElement('div'); s.className = 'sparkle';
+    s.style.left = (e.clientX - 3) + 'px'; s.style.top = (e.clientY - 3) + 'px';
+    document.body.appendChild(s); setTimeout(function () { s.remove(); }, 800);
+});
+
+var cvs = document.getElementById('starfield');
+var ctx = cvs.getContext('2d');
+function fit() { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+fit(); window.addEventListener('resize', fit);
+var stars = new Array(160).fill(0).map(function () {
+    return { x: Math.random() * cvs.width, y: Math.random() * cvs.height, r: Math.random() * 1.4 + 0.3, s: Math.random() * 0.6 + 0.2 };
+});
+function tick() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    for (var i = 0; i < stars.length; i++) {
+        var st = stars[i]; st.x -= st.s; if (st.x < -2) { st.x = cvs.width + 2; st.y = Math.random() * cvs.height; }
+        ctx.globalAlpha = 0.5 + Math.sin((i + performance.now() / 600) * 0.2) * 0.25;
+        ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2); ctx.fill();
+    }
+    requestAnimationFrame(tick);
+}
+tick();
+
+window.addEventListener('keydown', function (e) {
+    const activeElement = document.activeElement;
+    const isTyping = activeElement && (
+        activeElement.tagName === 'INPUT' ||
+        activeElement.tagName === 'TEXTAREA' ||
+        activeElement.contentEditable === 'true'
+    );
+
+    if (!isTyping) {
+        if (e.key === 'h' || e.key === 'H') { burstHearts(24); }
+    }
+});
+
+var constellation = document.getElementById('constellation');
+if (constellation) {
+    var stars = [];
+    for (var i = 0; i < 50; i++) {
+        var star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        constellation.appendChild(star);
+        stars.push(star);
+    }
+}
+
+(function () {
+    var uploadBtn = document.getElementById('upload-btn');
+    var photoUpload = document.getElementById('photo-upload');
+    var photoGallery = document.getElementById('photo-gallery');
+    var photos = [];
+
+    function renderPhotos() {
+        photoGallery.innerHTML = '';
+        photos.forEach(function (photo, index) {
+            var photoItem = document.createElement('div');
+            photoItem.className = 'photo-item';
+            photoItem.innerHTML = `
+                    <img src="${photo.url}" alt="Memory photo">
+                    <button class="delete-btn" data-index="${index}">✕</button>
+                `;
+            photoGallery.appendChild(photoItem);
+        });
+    }
+
+    async function loadPhotos() {
+        try {
+            var response = await fetch(getGitHubUrl(LOVE_DATA_FILE));
+            if (response.ok) {
+                var data = await response.json();
+                var content = JSON.parse(atob(data.content));
+                photos = content['memory-photos'] || [];
+                console.log('Loaded photos:', photos);
+                renderPhotos();
+            }
+        } catch (error) {
+            console.log('No photos found or error loading:', error);
+            photos = [];
+            renderPhotos();
+        }
+    }
+
+
+    async function savePhotos() {
+        try {
+            var token = GITHUB_TOKEN;
+
+            var sha = null;
+            try {
+                var response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                    headers: {
+                        'Authorization': 'token ' + token
+                    }
+                });
+                if (response.ok) {
+                    var data = await response.json();
+                    sha = data.sha;
+                }
+            } catch (e) {
+            }
+
+            var allData = {};
+            if (sha) {
+                var existingResponse = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                    headers: {
+                        'Authorization': 'token ' + token
+                    }
+                });
+                var existingData = await existingResponse.json();
+                allData = JSON.parse(atob(existingData.content));
+            }
+
+            allData['memory-photos'] = photos;
+
+            var uploadResponse = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Update memory photos',
+                    content: btoa(JSON.stringify(allData, null, 2)),
+                    sha: sha
+                })
+            });
+
+            if (uploadResponse.ok) {
+                console.log('Photos saved to GitHub');
+            } else {
+                var errorData = await uploadResponse.json();
+                console.error('Failed to save photos to GitHub:', uploadResponse.status, errorData);
+            }
+        } catch (error) {
+            console.error('Error saving photos:', error);
+        }
+    }
+
+    async function uploadPhotoToGitHub(file) {
+        try {
+            var reader = new FileReader();
+            reader.onload = async function (e) {
+                var base64 = e.target.result.split(',')[1];
+                var fileExtension = file.name.split('.').pop().toLowerCase();
+                var filename = 'memory-' + Date.now() + '.' + fileExtension;
+
+                var token = GITHUB_TOKEN;
+
+                var response = await fetch(getGitHubUrl('memory/' + filename), {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'token ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Upload memory photo',
+                        content: base64
+                    })
+                });
+
+                if (response.ok) {
+                    var data = await response.json();
+                    var photoUrl = data.content.download_url;
+                    photos.push({ url: photoUrl, filename: filename });
+                    await savePhotos();
+                    renderPhotos();
+                    console.log('Photo uploaded successfully:', photoUrl);
+                } else {
+                    var errorData = await response.json();
+                    console.error('Failed to upload photo to GitHub:', response.status, errorData);
+                    alert('Lỗi upload ảnh: ' + (errorData.message || 'Lỗi không xác định'));
+                }
+            };
+            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Error uploading photo:', error);
+            alert('Lỗi upload ảnh: ' + error.message);
+        }
+    }
+
+    async function deletePhotoFromGitHub(filename) {
+        try {
+            var token = GITHUB_TOKEN;
+
+            var getResponse = await fetch(getGitHubUrl('memory/' + filename), {
+                headers: {
+                    'Authorization': 'token ' + token
+                }
+            });
+
+            if (!getResponse.ok) {
+                throw new Error('File not found on GitHub');
+            }
+
+            var fileData = await getResponse.json();
+            var sha = fileData.sha;
+
+            var deleteResponse = await fetch(getGitHubUrl('memory/' + filename), {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'token ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Delete memory photo',
+                    sha: sha
+                })
+            });
+
+            if (deleteResponse.ok) {
+                console.log('Photo deleted from GitHub:', filename);
+                return true;
+            } else {
+                var errorData = await deleteResponse.json();
+                throw new Error(errorData.message || 'Failed to delete photo from GitHub');
+            }
+        } catch (error) {
+            console.error('Error deleting photo from GitHub:', error);
+            throw error;
+        }
+    }
+
+    uploadBtn.addEventListener('click', function () {
+        photoUpload.click();
+    });
+
+    photoUpload.addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (file) {
+            uploadPhotoToGitHub(file);
+        }
+    });
+
+    photoGallery.addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete-btn')) {
+            var index = parseInt(e.target.dataset.index);
+            var photo = photos[index];
+
+            deletePhotoFromGitHub(photo.filename).then(function () {
+                photos.splice(index, 1);
+                savePhotos();
+                renderPhotos();
+            }).catch(function (error) {
+                console.error('Error deleting photo from GitHub:', error);
+                alert('Lỗi xóa ảnh trên GitHub: ' + error.message);
+            });
+        }
+    });
+
+    photoGallery.addEventListener('click', function (e) {
+        if (e.target.tagName === 'IMG') {
+            var index = parseInt(e.target.closest('.photo-item').dataset.index);
+            showPhotoModal(e.target.src, index);
+        }
+    });
+
+    function showPhotoModal(src, currentIndex = 0) {
+        if (isNaN(currentIndex) || currentIndex < 0) {
+            currentIndex = 0;
+        }
+
+        var modal = document.createElement('div');
+        modal.className = 'photo-modal show';
+
+        var prevBtn = photos.length > 1 ? '<button class="nav-btn prev">◀</button>' : '<button class="nav-btn prev hidden">◀</button>';
+        var nextBtn = photos.length > 1 ? '<button class="nav-btn next">▶</button>' : '<button class="nav-btn next hidden">▶</button>';
+
+        modal.innerHTML = `
+                <div class="photo-modal-content">
+                    <img src="${src}" alt="Enlarged photo" class="fade-in">
+                    <button class="close-btn">✕</button>
+                    ${prevBtn}
+                    ${nextBtn}
+                </div>
+            `;
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+
+        var autoPlayTimer;
+        var isAutoPlaying = true;
+
+        console.log('showPhotoModal - currentIndex:', currentIndex, 'photos.length:', photos.length);
+
+        function goToNext() {
+            console.log('goToNext called, currentIndex:', currentIndex);
+            var nextIndex = (currentIndex + 1) % photos.length;
+            console.log('nextIndex:', nextIndex);
+            changePhoto(nextIndex);
+        }
+
+        function goToPrev() {
+            console.log('goToPrev called, currentIndex:', currentIndex);
+            var prevIndex = currentIndex - 1;
+            if (prevIndex < 0) prevIndex = photos.length - 1;
+            console.log('prevIndex:', prevIndex);
+            changePhoto(prevIndex);
+        }
+
+        function changePhoto(newIndex) {
+            console.log('changePhoto called with newIndex:', newIndex);
+
+            if (isNaN(newIndex) || newIndex < 0 || newIndex >= photos.length) {
+                console.error('Invalid newIndex:', newIndex);
+                return;
+            }
+
+            if (!photos[newIndex] || !photos[newIndex].url) {
+                console.error('Photo not found at index:', newIndex);
+                return;
+            }
+
+            var img = modal.querySelector('img');
+
+            img.classList.add('fade-out');
+
+            img.src = photos[newIndex].url;
+            currentIndex = newIndex;
+
+            updateNavigationButtons();
+
+            setTimeout(function () {
+                img.classList.remove('fade-out');
+                img.classList.add('fade-in');
+
+                if (isAutoPlaying) {
+                    startAutoPlay();
+                }
+            }, 300);
+        }
+
+        function updateNavigationButtons() {
+            var prevButton = modal.querySelector('.nav-btn.prev');
+            var nextButton = modal.querySelector('.nav-btn.next');
+
+            if (photos.length > 1) {
+                prevButton.classList.remove('hidden');
+                nextButton.classList.remove('hidden');
+            } else {
+                prevButton.classList.add('hidden');
+                nextButton.classList.add('hidden');
+            }
+        }
+
+        function startAutoPlay() {
+            if (autoPlayTimer) clearInterval(autoPlayTimer);
+            autoPlayTimer = setInterval(goToNext, 10000);
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = null;
+            }
+        }
+
+        var img = modal.querySelector('img');
+        img.onload = function () {
+            var imgWidth = img.naturalWidth;
+            var imgHeight = img.naturalHeight;
+            var containerWidth = window.innerWidth * 0.9;
+            var containerHeight = window.innerHeight * 0.9;
+
+            var scaleX = containerWidth / imgWidth;
+            var scaleY = containerHeight / imgHeight;
+            var scale = Math.min(scaleX, scaleY);
+
+            var finalWidth = imgWidth * scale;
+            var finalHeight = imgHeight * scale;
+
+            img.style.width = finalWidth + 'px';
+            img.style.height = finalHeight + 'px';
+            img.style.maxWidth = 'none';
+            img.style.maxHeight = 'none';
+        };
+
+        var prevButton = modal.querySelector('.nav-btn.prev');
+        var nextButton = modal.querySelector('.nav-btn.next');
+
+        prevButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+            stopAutoPlay();
+            goToPrev();
+        });
+
+        nextButton.addEventListener('click', function (e) {
+            e.stopPropagation();
+            stopAutoPlay();
+            goToNext();
+        });
+
+        startAutoPlay();
+
+        modal.addEventListener('mouseenter', stopAutoPlay);
+        modal.addEventListener('mouseleave', function () {
+            if (isAutoPlaying) startAutoPlay();
+        });
+
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal || e.target.classList.contains('close-btn')) {
+                stopAutoPlay();
+                modal.remove();
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                stopAutoPlay();
+                modal.remove();
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+
+    loadPhotos();
+
+    function updatePlaceholderColor() {
+        var dayNote = document.getElementById('day-note');
+        var currentTheme = document.body.getAttribute('data-theme');
+
+        if (dayNote) {
+            if (currentTheme === 'dark') {
+                dayNote.style.color = '#ffffff';
+                dayNote.style.setProperty('--placeholder-color', 'rgba(255, 255, 255, 0.95)');
+
+                var existingStyle = document.getElementById('day-note-placeholder-style');
+                if (existingStyle) existingStyle.remove();
+
+                var style = document.createElement('style');
+                style.id = 'day-note-placeholder-style';
+                style.textContent = '#day-note::placeholder { color: #ffffff !important; opacity: 0.95 !important; }';
+                document.head.appendChild(style);
+            } else {
+                dayNote.style.color = '#000000';
+                dayNote.style.setProperty('--placeholder-color', 'rgba(0, 0, 0, 0.6)');
+
+                var existingStyle = document.getElementById('day-note-placeholder-style');
+                if (existingStyle) existingStyle.remove();
+
+                var style = document.createElement('style');
+                style.id = 'day-note-placeholder-style';
+                style.textContent = '#day-note::placeholder { color: rgba(0, 0, 0, 0.6) !important; }';
+                document.head.appendChild(style);
+            }
+        }
+    }
+
+    updatePlaceholderColor();
+
+    setTimeout(function () {
+        updatePlaceholderColor();
+    }, 100);
+
+    function setDarkTheme() {
+        document.body.setAttribute('data-theme', 'dark');
+        updatePlaceholderColor();
+    }
+
+    function setLightTheme() {
+        document.body.setAttribute('data-theme', 'light');
+        updatePlaceholderColor();
+    }
+
+    function detectTheme() {
+        var bodyStyle = window.getComputedStyle(document.body);
+        var bgColor = bodyStyle.backgroundColor;
+
+        if (bgColor.includes('rgb(26, 26, 46)') || bgColor.includes('rgb(22, 33, 62)')) {
+            setDarkTheme();
+        } else {
+            setLightTheme();
+        }
+    }
+
+    detectTheme();
+
+    function addThemeToggle() {
+        var toggleBtn = document.createElement('button');
+        toggleBtn.innerHTML = '🌙';
+        toggleBtn.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+                background: linear-gradient(135deg, #ff6b9d, #b388ff);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+            `;
+
+        toggleBtn.addEventListener('click', function () {
+            var currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                setLightTheme();
+                toggleBtn.innerHTML = '🌙';
+            } else {
+                setDarkTheme();
+                toggleBtn.innerHTML = '☀️';
+            }
+        });
+
+        document.body.appendChild(toggleBtn);
+    }
+
+    addThemeToggle();
+
+
+    document.addEventListener('click', function () {
+        setTimeout(updatePlaceholderColor, 100);
+    });
+
+})();
+
+(function () {
+    var grid = document.getElementById('calendar-grid'); if (!grid) return;
+    var titleEl = document.getElementById('cal-title');
+    var cur = new Date();
+    function render() {
+        var y = cur.getFullYear(), m = cur.getMonth();
+        var monthNames = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+        titleEl.textContent = monthNames[m] + ' năm ' + y;
+        var first = new Date(y, m, 1); var startDay = first.getDay(); if (startDay === 0) startDay = 7;
+        var dim = new Date(y, m + 1, 0).getDate();
+        // console.debug('Rendering calendar:', y, m + 1, 'startDay:', startDay, 'days:', dim);
+        grid.innerHTML = '';
+        ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].forEach(function (h) { var hEl = document.createElement('div'); hEl.textContent = h; hEl.style.fontWeight = '600'; grid.appendChild(hEl); });
+        for (var i = 1; i < startDay; i++) { var b = document.createElement('div'); b.className = 'blank'; grid.appendChild(b); }
+
+        for (var d = 1; d <= dim; d++) {
+            var c = document.createElement('div'); c.textContent = d; if (d === new Date().getDate() && m === new Date().getMonth() && y === new Date().getFullYear()) c.className = 'today';
+            c.addEventListener('click', function (e) {
+                Array.from(grid.querySelectorAll('div')).forEach(function (el) { el.classList && el.classList.remove('selected'); });
+                e.target.classList.add('selected');
+            });
+            grid.appendChild(c);
+        }
+
+        var totalCells = 7 + (startDay - 1) + dim;
+        var remainingCells = 42 - totalCells;
+        for (var j = 0; j < remainingCells; j++) {
+            var blankEnd = document.createElement('div');
+            blankEnd.className = 'blank';
+            grid.appendChild(blankEnd);
+        }
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            render();
+        });
+    } else {
+        render();
+    }
+
+    document.getElementById('cal-prev').addEventListener('click', function () { cur.setMonth(cur.getMonth() - 1); render(); });
+    document.getElementById('cal-next').addEventListener('click', function () { cur.setMonth(cur.getMonth() + 1); render(); });
+    document.getElementById('cal-today').addEventListener('click', function () {
+        cur = new Date();
+        render();
+        setTimeout(function () {
+            var todayCell = document.querySelector('.today');
+            if (todayCell) {
+                var prevSelected = grid.querySelector('.selected');
+                if (prevSelected) {
+                    prevSelected.classList.remove('selected');
+                }
+                todayCell.classList.add('selected');
+                todayCell.click();
+            }
+        }, 100);
+    });
+})();
+
+(function () {
+    var startDate = new Date(`${date_day.day}T${date_day.hour}`);
+    var days = Math.floor(Math.floor((new Date() - startDate) / 1000) / 60 / 60 / 24);
+    var statDays = document.getElementById('stat-days');
+    var statHours = document.getElementById('stat-hours');
+    var statWeeks = document.getElementById('stat-weeks');
+    if (statDays) statDays.textContent = days + ' ngày';
+    if (statHours) statHours.textContent = Math.floor((new Date() - startDate) / 36e5).toLocaleString('vi-VN') + ' giờ';
+    if (statWeeks) statWeeks.textContent = Math.floor(days / 7) + ' tuần';
+})();
+
+(function () {
+    var compliments = [
+        'Nụ cười của bạn làm sáng cả ngày ☀️',
+        'Bạn xứng đáng với mọi yêu thương 💖',
+        'Thế giới tốt đẹp hơn khi có bạn 💫',
+        'Bạn là lý do để mình cố gắng hơn mỗi ngày 🌱',
+        'Hôm nay bạn thật tỏa sáng ✨'
+    ];
+    var textEl = document.getElementById('compliment-text');
+    var btn = document.getElementById('compliment-refresh');
+    function refresh() { textEl.textContent = compliments[Math.floor(Math.random() * compliments.length)]; }
+    if (btn && textEl) { btn.addEventListener('click', refresh); refresh(); }
+})();
+
+(function () {
+    var noteEl = document.getElementById('day-note');
+    var grid = document.getElementById('calendar-grid'); if (!noteEl || !grid) return;
+    function getKey() {
+        var sel = grid.querySelector('.selected');
+        var base = new Date();
+        var y = base.getFullYear();
+        var m = base.getMonth() + 1;
+        var d = sel ? parseInt(sel.textContent, 10) : base.getDate();
+
+        if (sel) {
+            var calTitle = document.getElementById('cal-title');
+            if (calTitle) {
+                var monthText = calTitle.textContent;
+                var monthMatch = monthText.match(/Tháng\s+(\d+)\s*\/\s*(\d+)/);
+                if (monthMatch) {
+                    m = parseInt(monthMatch[1], 10);
+                    y = parseInt(monthMatch[2], 10);
+                }
+            }
+        }
+
+        var key = 'note-' + y + '-' + m + '-' + d;
+        return key;
+    }
+    async function load() {
+        var key = getKey();
+        var v = '';
+
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                let allData;
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+                v = allData[key] ? allData[key].value : '';
+                // console.debug('Loaded from GitHub:', key);
+            } else {
+                console.log('GitHub file not found, no data available');
+                v = '';
+            }
+        } catch (error) {
+            // console.debug('GitHub load failed:', error);
+            v = '';
+        }
+
+        // console.debug('Load called with key:', key);
+        noteEl.value = v;
+        // console.debug('Textarea value set');
+        updateCharCounter();
+        updateHistory();
+    }
+
+    async function updateHistory() {
+        var historyList = document.getElementById('history-list');
+        if (!historyList) return;
+
+        var notes = [];
+
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                let allData;
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+
+                for (var key in allData) {
+                    if (key.startsWith('note-') && allData[key].value && allData[key].value.trim()) {
+                        var content = allData[key].value;
+                        var dateStr = key.replace('note-', '');
+                        var parts = dateStr.split('-');
+                        if (parts.length === 3) {
+                            var year = parseInt(parts[0]);
+                            var month = parseInt(parts[1]);
+                            var day = parseInt(parts[2]);
+                            var date = new Date(year, month - 1, day);
+                            notes.push({
+                                key: key,
+                                date: date,
+                                content: content,
+                                dateStr: day + '/' + month + '/' + year
+                            });
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            console.log('GitHub load failed:', error);
+        }
+
+        notes.sort(function (a, b) {
+            return b.date - a.date;
+        });
+
+        if (notes.length === 0) {
+            historyList.innerHTML = '<div class="no-notes">Chưa có ghi chú nào</div>';
+            return;
+        }
+
+        historyList.innerHTML = '';
+        notes.forEach(function (note) {
+            var noteBox = document.createElement('div');
+            noteBox.className = 'note-box';
+            noteBox.innerHTML = '<div class="note-date">' + note.dateStr + '</div><button class="delete-note-btn" data-key="' + note.key + '">✕</button>';
+
+            var deleteBtn = noteBox.querySelector('.delete-note-btn');
+            deleteBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                noteBox.remove();
+
+                deleteNoteFromGitHub(note.key);
+
+                if (noteEl.value && noteEl.value.trim()) {
+                    noteEl.value = '';
+                    updateCharCounter();
+                }
+            });
+
+            noteBox.addEventListener('click', function (e) {
+                if (e.target.classList.contains('delete-note-btn')) {
+                    return;
+                }
+
+                var parts = note.key.replace('note-', '').split('-');
+                var year = parseInt(parts[0]);
+                var month = parseInt(parts[1]);
+                var day = parseInt(parts[2]);
+
+                console.log('Loading note directly:', note.key, 'content:', note.content);
+
+                noteEl.value = note.content;
+                updateCharCounter();
+                updateHistory();
+
+                var calTitle = document.getElementById('cal-title');
+                if (calTitle) {
+                    var currentTitle = calTitle.textContent;
+                    var currentMatch = currentTitle.match(/(\d+)\s*\/\s*(\d+)/);
+                    if (currentMatch) {
+                        var currentMonth = parseInt(currentMatch[1]);
+                        var currentYear = parseInt(currentMatch[2]);
+                        var monthsDiff = (year - currentYear) * 12 + (month - currentMonth);
+
+                        var calPrev = document.getElementById('cal-prev');
+                        var calNext = document.getElementById('cal-next');
+
+                        if (monthsDiff > 0 && calNext) {
+                            for (var i = 0; i < monthsDiff; i++) {
+                                setTimeout(function () {
+                                    calNext.click();
+                                }, i * 100);
+                            }
+                        } else if (monthsDiff < 0 && calPrev) {
+                            for (var i = 0; i < Math.abs(monthsDiff); i++) {
+                                setTimeout(function () {
+                                    calPrev.click();
+                                }, i * 100);
+                            }
+                        }
+
+                        setTimeout(function () {
+                            var cells = grid.querySelectorAll('div');
+                            cells.forEach(function (cell) {
+                                if (cell.textContent.trim() == day && cell.textContent.trim() !== '' &&
+                                    cell.textContent.trim() !== 'T2' && cell.textContent.trim() !== 'T3' &&
+                                    cell.textContent.trim() !== 'T4' && cell.textContent.trim() !== 'T5' &&
+                                    cell.textContent.trim() !== 'T6' && cell.textContent.trim() !== 'T7' &&
+                                    cell.textContent.trim() !== 'CN') {
+
+                                    var prevSelected = grid.querySelector('.selected');
+                                    if (prevSelected) prevSelected.classList.remove('selected');
+                                    cell.classList.add('selected');
+                                }
+                            });
+                        }, Math.abs(monthsDiff) * 100 + 500);
+                    }
+                }
+            });
+
+            historyList.appendChild(noteBox);
+        });
+    }
+
+    function updateCharCounter() {
+        const counter = document.getElementById('char-counter');
+        if (counter) {
+            const length = noteEl.value.length;
+            counter.textContent = `${length} / 500`;
+
+            if (length > 450) {
+                counter.style.color = '#ff6b9d';
+                counter.style.fontWeight = '600';
+            } else if (length > 300) {
+                counter.style.color = '#ffa726';
+                counter.style.fontWeight = '500';
+            } else {
+                counter.style.color = 'var(--text-secondary)';
+                counter.style.fontWeight = '400';
+            }
+        }
+    }
+
+    function addTypingAnimation() {
+        noteEl.classList.add('typing');
+        setTimeout(() => {
+            noteEl.classList.remove('typing');
+        }, 500);
+    }
+
+    grid.addEventListener('click', function (e) {
+        if (e.target && e.target.textContent.trim()) {
+            var clickedDay = parseInt(e.target.textContent.trim());
+
+            var prevSelected = grid.querySelector('.selected');
+            if (prevSelected) {
+                prevSelected.classList.remove('selected');
+            }
+
+            e.target.classList.add('selected');
+
+            load();
+        }
+    });
+
+    noteEl.addEventListener('input', function () {
+        updateCharCounter();
+        addTypingAnimation();
+    });
+
+    noteEl.addEventListener('keydown', function () {
+        addTypingAnimation();
+    });
+
+    var saveBtn = document.getElementById('save-to-github');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', async function () {
+            var key = getKey();
+            var value = noteEl.value;
+
+            saveBtn.classList.add('saving');
+            saveBtn.textContent = '💾 Đang lưu...';
+            saveBtn.disabled = true;
+
+            try {
+                let allData = {};
+                let sha = null;
+                try {
+                    const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                        headers: {
+                            'Authorization': 'token ' + GITHUB_TOKEN
+                        }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        try {
+                            allData = JSON.parse(atob(data.content));
+                        } catch (e) {
+                            allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                        }
+                        sha = data.sha;
+                    }
+                } catch (error) {
+                    console.log('No existing GitHub file, creating new one');
+                }
+
+                allData[key] = {
+                    value: value,
+                    timestamp: new Date().toISOString()
+                };
+
+                const uploadResponse = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'token ' + GITHUB_TOKEN,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: sha ? 'Update ' + LOVE_DATA_FILE : 'Create ' + LOVE_DATA_FILE,
+                        content: btoa(JSON.stringify(allData, null, 2)),
+                        branch: 'main',
+                        ...(sha && { sha: sha })
+                    })
+                });
+
+                if (uploadResponse.ok) {
+                    saveBtn.textContent = '✅ Đã lưu!';
+                    saveBtn.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+
+                    updateHistory();
+                } else {
+                    throw new Error('Failed to upload: ' + uploadResponse.statusText);
+                }
+
+                setTimeout(() => {
+                    saveBtn.classList.remove('saving');
+                    saveBtn.textContent = '💾 Lưu lên GitHub';
+                    saveBtn.style.background = 'linear-gradient(135deg, #ff6b9d, #b388ff)';
+                    saveBtn.disabled = false;
+                }, 2000);
+            } catch (error) {
+                saveBtn.textContent = '❌ Lỗi!';
+                saveBtn.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+
+                setTimeout(() => {
+                    saveBtn.classList.remove('saving');
+                    saveBtn.textContent = '💾 Lưu lên GitHub';
+                    saveBtn.style.background = 'linear-gradient(135deg, #ff6b9d, #b388ff)';
+                    saveBtn.disabled = false;
+                }, 2000);
+            }
+        });
+    }
+
+
+    load();
+})();
+
+(function () {
+    var listEl = document.getElementById('todo-list'); var form = document.getElementById('todo-form'); var input = document.getElementById('todo-input');
+    if (!listEl || !form) return;
+    var KEY = 'love-todo';
+    async function read() {
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                let allData;
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+                return JSON.parse(allData[KEY] ? allData[KEY].value : '[]');
+            } else {
+                return [];
+            }
+        } catch (e) {
+            return [];
+        }
+    }
+    async function write(items) {
+        let allData = {};
+        let sha = null;
+        try {
+            const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                try {
+                    allData = JSON.parse(atob(data.content));
+                } catch (e) {
+                    allData = JSON.parse(decodeURIComponent(atob(data.content)));
+                }
+                sha = data.sha;
+            }
+        } catch (error) {
+            console.log('No existing GitHub file, creating new one');
+        }
+
+        allData[KEY] = {
+            value: JSON.stringify(items),
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const uploadResponse = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: sha ? 'Update ' + LOVE_DATA_FILE : 'Create ' + LOVE_DATA_FILE,
+                    content: btoa(JSON.stringify(allData, null, 2)),
+                    branch: 'main',
+                    ...(sha && { sha: sha })
+                })
+            });
+
+            if (!uploadResponse.ok) {
+                console.log('Failed to save to GitHub:', uploadResponse.statusText);
+            }
+        } catch (error) {
+            console.log('Error saving to GitHub:', error);
+        }
+    }
+    async function render() {
+        var items = await read(); listEl.innerHTML = '';
+        items.forEach(function (it, idx) {
+            var row = document.createElement('div'); row.className = 'todo-item';
+            var cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!it.done; cb.addEventListener('change', async function () {
+                items[idx].done = cb.checked;
+                if (it.done) { text.style.opacity = '.7'; } else { text.style.opacity = '1'; }
+                write(items);
+            });
+            var text = document.createElement('div'); text.className = 'text'; text.textContent = it.text; if (it.done) { text.style.opacity = '.7'; }
+            var del = document.createElement('button'); del.className = 'delete'; del.textContent = '✕'; del.addEventListener('click', async function () {
+                row.remove();
+                items.splice(idx, 1);
+                write(items);
+            });
+            row.appendChild(cb); row.appendChild(text); row.appendChild(del); listEl.appendChild(row);
+        });
+    }
+    input.addEventListener('keydown', async function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            var t = input.value.trim();
+            if (!t) return;
+
+            var row = document.createElement('div');
+            row.className = 'todo-item';
+            var cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.checked = false;
+            var text = document.createElement('div');
+            text.className = 'text';
+            text.textContent = t;
+            var del = document.createElement('button');
+            del.className = 'delete';
+            del.textContent = '✕';
+
+            cb.addEventListener('change', async function () {
+                var items = await read();
+                var idx = items.findIndex(item => item.text === t);
+                if (idx !== -1) {
+                    items[idx].done = cb.checked;
+                    write(items);
+                }
+            });
+
+            del.addEventListener('click', async function () {
+                row.remove();
+                var items = await read();
+                items = items.filter(item => item.text !== t);
+                write(items);
+            });
+
+            row.appendChild(cb);
+            row.appendChild(text);
+            row.appendChild(del);
+            listEl.appendChild(row);
+
+            var items = await read();
+            items.unshift({ text: t, done: false });
+            write(items);
+            input.value = '';
+        }
+    });
+
+    (async function () {
+        await render();
+    })();
+})();
+
+(function () {
+    var canvas = document.getElementById('fireworks'); if (!canvas) return; var ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } resize(); window.addEventListener('resize', resize);
+    var sparks = [];
+    function boom(x, y, color) { for (var i = 0; i < 60; i++) { sparks.push({ x: x, y: y, vx: (Math.random() - 0.5) * 6, vy: (Math.random() - 0.5) * 6, life: 60 + Math.random() * 20, color: color }); } }
+    function loop() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (var i = sparks.length - 1; i >= 0; i--) { var s = sparks[i]; s.x += s.vx; s.y += s.vy; s.vy += 0.03; s.life -= 1; ctx.fillStyle = s.color; ctx.globalAlpha = Math.max(0, s.life / 80); ctx.fillRect(s.x, s.y, 2, 2); if (s.life <= 0) sparks.splice(i, 1); } requestAnimationFrame(loop); }
+    loop();
+    window.addEventListener('keydown', function (e) {
+        const activeElement = document.activeElement;
+        const isTyping = activeElement && (
+            activeElement.tagName === 'INPUT' ||
+            activeElement.tagName === 'TEXTAREA' ||
+            activeElement.contentEditable === 'true'
+        );
+
+        if (!isTyping && (e.key === 'f' || e.key === 'F')) {
+            boom(Math.random() * canvas.width, Math.random() * canvas.height, 'hsl(' + (Math.random() * 360) + ',100%,70%)');
+        }
+    });
+    var origBurst = burstHearts; burstHearts = function (n) { origBurst(n); boom(window.innerWidth / 2, window.innerHeight / 2, '#ff9fc0'); };
+})();
+
+
+function createParticle(type) {
+    var particle = document.createElement('div');
+    particle.className = 'particle ' + type;
+    particle.textContent = '✨';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.fontSize = (12 + Math.random() * 16) + 'px';
+    particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+    document.body.appendChild(particle);
+    setTimeout(function () { particle.remove(); }, 10000);
+}
+
+(function buildCalendar() {
+    var grid = document.getElementById('calendar-grid'); if (!grid) return;
+    var now = new Date(); var y = now.getFullYear(); var m = now.getMonth();
+    var first = new Date(y, m, 1); var startDay = first.getDay(); if (startDay === 0) startDay = 7;
+    var daysInM = new Date(y, m + 1, 0).getDate();
+    var cells = [];
+    for (var i = 1; i < startDay; i++) cells.push('');
+    for (var d = 1; d <= daysInM; d++) cells.push(d);
+    grid.innerHTML = '';
+    ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'].forEach(function (h) { var hEl = document.createElement('div'); hEl.textContent = h; hEl.style.fontWeight = '600'; grid.appendChild(hEl); });
+    cells.forEach(function (val) { var c = document.createElement('div'); c.textContent = val ? val : ''; if (val === now.getDate()) c.className = 'today'; grid.appendChild(c); });
+})();
+
+function updateMilestoneProgress() {
+    var now = new Date();
+    var start = new Date(`${date_day.day}T${date_day.hour}`);
+    var daysPassed = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+
+    var milestones = [
+        { value: 1, label: '1 ngày', type: 'day' },
+        { value: 7, label: '1 tuần', type: 'day' },
+        { value: 1, label: '1 tháng', type: 'month' },
+        { value: 3, label: '3 tháng', type: 'month' },
+        { value: 6, label: '6 tháng', type: 'month' },
+        { value: 1, label: '1 năm', type: 'year' },
+        { value: 2, label: '2 năm', type: 'year' },
+        { value: 3, label: '3 năm', type: 'year' },
+        { value: 4, label: '4 năm', type: 'year' },
+        { value: 5, label: '5 năm', type: 'year' }
+    ];
+
+    var nextMilestone = null;
+    var nextMilestoneDate = null;
+
+    for (var i = 0; i < milestones.length; i++) {
+        var milestone = milestones[i];
+        var targetDate = new Date(start);
+
+        if (milestone.type === 'day') {
+            targetDate.setDate(start.getDate() + milestone.value);
+        } else if (milestone.type === 'month') {
+            targetDate.setMonth(start.getMonth() + milestone.value);
+        } else if (milestone.type === 'year') {
+            targetDate.setFullYear(start.getFullYear() + milestone.value);
+        }
+
+        if (now < targetDate) {
+            nextMilestone = milestone;
+            nextMilestoneDate = targetDate;
+            break;
+        }
+    }
+
+    var progressFill = document.getElementById('progress-fill');
+    var nextMilestoneEl = document.getElementById('next-milestone');
+    var progressPercentage = document.getElementById('progress-percentage');
+
+    if (progressFill && nextMilestoneEl) {
+        if (nextMilestone && nextMilestoneDate) {
+            var totalTime = nextMilestoneDate - start;
+            var elapsedTime = now - start;
+            var progress = (elapsedTime / totalTime) * 100;
+            progressFill.style.width = Math.min(progress, 100) + '%';
+
+            if (progressPercentage) {
+                progressPercentage.textContent = Math.round(progress) + '%';
+            }
+
+            var daysToNext = Math.ceil((nextMilestoneDate - now) / (1000 * 60 * 60 * 24));
+
+            var milestoneText = nextMilestone.label;
+            var daysText = daysToNext.toString();
+
+            milestoneText = milestoneText.replace(/(\d+)/g, '<span class="number">$1</span>');
+            daysText = daysText.replace(/(\d+)/g, '<span class="number">$1</span>');
+
+            nextMilestoneEl.innerHTML = `💖 Tiếp theo: <span class="milestone-name">${milestoneText}</span> (còn <span class="days-remaining">${daysText}</span> ngày)`;
+        } else {
+            progressFill.style.width = '100%';
+            nextMilestoneEl.textContent = 'Đã đạt tất cả mốc! 🎉';
+
+            if (progressPercentage) {
+                progressPercentage.textContent = '100%';
+            }
+        }
+
+        var labels = document.querySelectorAll('.milestone-label');
+        labels.forEach(function (label, index) {
+            var milestone = milestones[index];
+            var targetDate = new Date(start);
+
+            if (milestone.type === 'day') {
+                targetDate.setDate(start.getDate() + milestone.value);
+            } else if (milestone.type === 'month') {
+                targetDate.setMonth(start.getMonth() + milestone.value);
+            } else if (milestone.type === 'year') {
+                targetDate.setFullYear(start.getFullYear() + milestone.value);
+            }
+
+            label.classList.remove('completed', 'current', 'upcoming');
+
+            if (now >= targetDate) {
+                label.classList.add('completed');
+            } else if (index > 0) {
+                var prevMilestone = milestones[index - 1];
+                var prevTargetDate = new Date(start);
+
+                if (prevMilestone.type === 'day') {
+                    prevTargetDate.setDate(start.getDate() + prevMilestone.value);
+                } else if (prevMilestone.type === 'month') {
+                    prevTargetDate.setMonth(start.getMonth() + prevMilestone.value);
+                } else if (prevMilestone.type === 'year') {
+                    prevTargetDate.setFullYear(start.getFullYear() + prevMilestone.value);
+                }
+
+                if (now >= prevTargetDate) {
+                    label.classList.add('current');
+                } else {
+                    label.classList.add('upcoming');
+                }
+            } else {
+                label.classList.add('upcoming');
+            }
+        });
+    }
+}
+
+updateMilestoneProgress();
+setInterval(updateMilestoneProgress, 1000);
+
+function updateMilestoneCounter() {
+    var now = new Date();
+    var start = new Date(`${date_day.day}T${date_day.hour}`);
+    var totalDiff = now - start;
+
+    if (totalDiff < 0) {
+        document.getElementById('counter-years').textContent = '0';
+        document.getElementById('counter-months').textContent = '0';
+        document.getElementById('counter-days').textContent = '0';
+        document.getElementById('counter-hours').textContent = '0';
+        document.getElementById('counter-minutes').textContent = '0';
+        document.getElementById('counter-seconds').textContent = '0';
+        return;
+    }
+
+    var years = Math.floor(totalDiff / (1000 * 60 * 60 * 24 * 365));
+    var months = Math.floor((totalDiff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+    var days = Math.floor((totalDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((totalDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((totalDiff % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((totalDiff % (1000 * 60)) / 1000);
+
+    document.getElementById('counter-years').textContent = years;
+    document.getElementById('counter-months').textContent = months;
+    document.getElementById('counter-days').textContent = days;
+    document.getElementById('counter-hours').textContent = hours;
+    document.getElementById('counter-minutes').textContent = minutes;
+    document.getElementById('counter-seconds').textContent = seconds;
+}
+
+updateMilestoneCounter();
+setInterval(updateMilestoneCounter, 1000);
+
+async function deleteNoteFromGitHub(noteKey) {
+    try {
+        const response = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+            headers: {
+                'Authorization': 'token ' + GITHUB_TOKEN,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            let allData;
+            try {
+                allData = JSON.parse(atob(data.content));
+            } catch (e) {
+                allData = JSON.parse(decodeURIComponent(atob(data.content)));
+            }
+            const sha = data.sha;
+
+            delete allData[noteKey];
+
+            const updateResponse = await fetch(getGitHubUrl(LOVE_DATA_FILE), {
+                method: 'PUT',
+                headers: {
+                    'Authorization': 'token ' + GITHUB_TOKEN,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Delete note: ' + noteKey,
+                    content: btoa(JSON.stringify(allData, null, 2)),
+                    branch: 'main',
+                    sha: sha
+                })
+            });
+
+            if (updateResponse.ok) {
+                console.log('✅ Đã xóa ghi chú:', noteKey);
+            } else {
+                console.log('❌ Lỗi khi xóa ghi chú:', await updateResponse.text());
+                updateHistory();
+            }
+        }
+    } catch (error) {
+        console.log('❌ Lỗi:', error);
+    }
+}
+
+function updateWingIcons(icon) {
+    // Nếu có cánh đang được chọn, chỉ đổi icon cho cánh đó
+    const selectedWing = document.querySelector('.wing-selected');
+    if (selectedWing) {
+        selectedWing.setAttribute('data-icon', icon);
+        return;
+    }
+    // Nếu không có cánh được chọn, đổi tất cả
+    document.querySelectorAll('.wing-left, .wing-left-mid, .wing-left-bottom, .wing-right, .wing-right-mid, .wing-right-bottom')
+        .forEach(el => el.setAttribute('data-icon', icon));
+}
+
+function updateSelectedOption(icon) {
+    const iconOptions = document.querySelectorAll('.icon-option');
+    iconOptions.forEach(option => {
+        option.classList.remove('selected');
+        if (option.getAttribute('data-icon') === icon) {
+            option.classList.add('selected');
+        }
+    });
+}
+
+// Cho phép chọn từng cánh để đổi icon riêng
+function enableWingSelection() {
+    const wings = document.querySelectorAll('.wing-left, .wing-left-mid, .wing-left-bottom, .wing-right, .wing-right-mid, .wing-right-bottom');
+    const selector = document.getElementById('icon-selector');
+
+    wings.forEach((wing, index) => {
+        // Icon mặc định nếu chưa có
+        if (!wing.getAttribute('data-icon')) {
+            wing.setAttribute('data-icon', '💕');
+        }
+
+        wing.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.wing-selected').forEach(w => w.classList.remove('wing-selected'));
+            wing.classList.add('wing-selected');
+
+            // Hiển thị selector tại vị trí click
+            if (selector) {
+                selector.style.left = `${Math.min(window.innerWidth - 370, Math.max(10, e.clientX - 175))}px`;
+                selector.style.top = `${Math.min(window.innerHeight - 370, Math.max(10, e.clientY - 175))}px`;
+                selector.classList.add('visible');
+            }
+        });
+    });
+
+    // Xử lý click chọn icon
+    if (selector) {
+        selector.addEventListener('click', (e) => {
+            const option = e.target.closest('.icon-option');
+            if (option) {
+                const icon = option.getAttribute('data-icon');
+                const selectedWing = document.querySelector('.wing-selected');
+                if (selectedWing) {
+                    selectedWing.setAttribute('data-icon', icon);
+                    const wingIndex = Array.from(selectedWing.parentNode.children).indexOf(selectedWing);
+                    localStorage.setItem(`wingIcon-${wingIndex}`, icon);
+                    selectedWing.classList.remove('wing-selected');
+                    selector.classList.remove('visible');
+                }
+            }
+        });
+    }
+
+    // Bỏ chọn khi click ra ngoài
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.icon-selector') && !e.target.closest('.anniversary-wrapper')) {
+            document.querySelectorAll('.wing-selected').forEach(w => w.classList.remove('wing-selected'));
+            selector && selector.classList.remove('visible');
+        }
+    });
+}
+
+enableWingSelection();
+
+

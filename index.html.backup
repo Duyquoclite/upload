@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url("index.css");
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='https://github.com/Duyquoclite/File/raw/main/yvi.png' rel='shortcut icon' type='image/x-icon' />
+    <title>Đếm ngày yêu</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <h1>LOVE DAYS</h1>
+
+
+
+        <div id="info">
+            <div class="profile-left">
+                <img src="https://github.com/Duyquoclite/File/raw/main/dquoc.png" class="avt">
+                <div class="profile-info">
+                    <div class="name">Bùi Duy Quốc ♂</div>
+                    <div class="nickname">(quất)</div>
+                    <div class="birthday">30/11/2006 (18+)</div>
+                    <div class="zodiac">♐️ Nhân Mã</div>
+                </div>
+            </div>
+            <div class="profile-right">
+                <img src="https://github.com/Duyquoclite/File/raw/main/yvi.png" class="avt">
+                <div class="profile-info">
+                    <div class="name">Đào Thị Yến Vy ♀</div>
+                    <div class="nickname">(khùng)</div>
+                    <div class="birthday">24/01/2009 (16+)</div>
+                    <div class="zodiac">♒️ Bảo Bình</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="milestone-progress">
+            <div class="milestone-header">
+                <div class="milestone-counter">
+                    <div class="counter-title">💖 Đếm ngược yêu nhau</div>
+                    <div class="counter-display">
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-years">0</div>
+                            <div class="time-label">năm</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-months">0</div>
+                            <div class="time-label">tháng</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-days">0</div>
+                            <div class="time-label">ngày</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-hours">0</div>
+                            <div class="time-label">giờ</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-minutes">0</div>
+                            <div class="time-label">phút</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="counter-seconds">0</div>
+                            <div class="time-label">giây</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="next-milestone" id="next-milestone">Đang tính...</div>
+            </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-percentage" id="progress-percentage">0%</div>
+                    </div>
+                <div class="milestone-labels">
+                    <div class="milestone-label" data-days="1">1 ngày</div>
+                    <div class="milestone-label" data-days="7">1 tuần</div>
+                    <div class="milestone-label" data-days="30">1 tháng</div>
+                    <div class="milestone-label" data-days="90">3 tháng</div>
+                    <div class="milestone-label" data-days="180">6 tháng</div>
+                    <div class="milestone-label" data-days="365">1 năm</div>
+                    <div class="milestone-label" data-days="730">2 năm</div>
+                    <div class="milestone-label" data-days="1095">3 năm</div>
+                    <div class="milestone-label" data-days="1460">4 năm</div>
+                    <div class="milestone-label" data-days="1825">5 năm</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+    <div id="left-panel" class="side-panel">
+
+        <div class="card todo">
+            <div class="mini-title">Love To-Do 💌</div>
+            <div id="todo-form">
+                <input type="text" id="todo-input" placeholder="Việc cần làm..." />
+            </div>
+            <div class="list" id="todo-list"></div>
+        </div>
+
+        <div class="card" id="memory-lane">
+            <div class="mini-title">📸 Kỷ niệm</div>
+            <div class="memory-content">
+                <div class="memory-photo" id="memory-photo">📷</div>
+                <div class="memory-text" id="memory-text">Chuyện đôi ta</div>
+                <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                <button id="upload-btn" class="upload-btn">📤 Upload ảnh</button>
+            </div>
+            <div class="photo-gallery" id="photo-gallery"></div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="mini-title">Thống kê</div>
+            <div class="stats-row">
+                <span class="stat-pill" id="stat-days">0 ngày</span>
+                <span class="stat-pill" id="stat-hours">0 giờ</span>
+                <span class="stat-pill" id="stat-weeks">0 tuần</span>
+            </div>
+        </div>
+    </div>
+    <div id="right-panel" class="side-panel">
+
+        <div class="card" id="mini-calendar">
+            <div class="cal-header">
+                <div class="mini-title" id="cal-title">Lịch</div>
+                <div class="nav">
+                    <button class="btn-icon" id="cal-prev">◀</button>
+                    <button class="btn-icon" id="cal-today">Hôm nay</button>
+                    <button class="btn-icon" id="cal-next">▶</button>
+                </div>
+            </div>
+            <div class="calendar" id="calendar-grid"></div>
+        </div>
+
+        <div class="card note-box">
+            <div class="mini-title">📝 Ghi chú & Lịch sử</div>
+        <div style="position: relative; overflow: hidden;">
+            <textarea id="day-note" placeholder="Viết vài điều dễ thương cho ngày này..." style="color: var(--text-primary);"></textarea>
+            <div class="char-counter" id="char-counter">0 / 500</div>
+            <button id="save-to-github" class="save-btn">💾 Lưu lên GitHub</button>
+        </div>
+            <div class="history-section">
+                <div class="history-list" id="history-list">
+                    <div class="no-notes">Chưa có ghi chú nào</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <canvas id="fireworks"></canvas>
+    <div id="twinkle"></div>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <canvas id="starfield"></canvas>
+    <div id="constellation"></div>
+
+    <div id="moon-spinner">
+        <div class="moon-icon" id="moon-icon">🌑</div>
+    </div>
+    
+    <div id="notification-modal" class="notification-modal">
+        <div class="notification-content">
+            <button class="notification-close" onclick="hideNotification()">&times;</button>
+            <div class="notification-icon" id="notification-icon">💖</div>
+            <div class="notification-title" id="notification-title">Thông báo</div>
+            <div class="notification-message" id="notification-message">Đây là thông báo mặc định</div>
+            <div class="notification-buttons" id="notification-buttons">
+                <button class="notification-btn primary" onclick="hideNotification()">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+
+</html>
