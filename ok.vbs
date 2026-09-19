@@ -1,4 +1,4 @@
-'false
+'true
 Set WshShell = CreateObject("WScript.Shell")
 
 ' Tăng âm lượng lên mức tối đa (Mã phím 175 là Volume Up)
@@ -9,7 +9,7 @@ Next
 ' Khởi tạo Windows Media Player để phát nhạc
 Set wmp = CreateObject("WMPlayer.OCX")
 ' Sử dụng link raw từ github để có thể phát trực tiếp
-wmp.URL = "https://raw.githubusercontent.com/Duyquoclite/File/main/10%20Ng%C3%A0n%20N%C4%83m%20-%20PC.mp3"
+wmp.URL = "https://raw.githubusercontent.com/Duyquoclite/upload/main/tieng_ma_cuoi-www_tiengdong_com.mp3"
 wmp.settings.volume = 100
 wmp.controls.play
 
