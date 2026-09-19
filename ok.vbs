@@ -1,4 +1,4 @@
-'true
+'false
 Set WshShell = CreateObject("WScript.Shell")
 
 ' Tăng âm lượng lên mức tối đa (Mã phím 175 là Volume Up)
